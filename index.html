@@ -1,0 +1,823 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Stay · Conserjería digital para hoteles</title>
+<meta name="description" content="Un QR en cada habitación: el huésped pide lo que necesita y recepción lo recibe en un único WhatsApp, con el número de habitación incluido. Sin app, sin descargas.">
+<meta property="og:title" content="My Stay · Conserjería digital para hoteles">
+<meta property="og:description" content="Tus huéspedes piden. Recepción lo recibe por WhatsApp. Pruébalo en la demo interactiva.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#2D4A3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232D4A3E'/%3E%3Cg fill='none' stroke='white' stroke-width='2.4' stroke-linejoin='round'%3E%3Crect x='7' y='7' width='7' height='7' rx='1'/%3E%3Crect x='18' y='7' width='7' height='7' rx='1'/%3E%3Crect x='7' y='18' width='7' height='7' rx='1'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--accent:#2D4A3E}
+*{box-sizing:border-box}
+body{margin:0;background:#F4F1EA;color:#1E2A23;font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+html{scroll-behavior:smooth}
+section[id]{scroll-margin-top:84px}
+a{color:#2D4A3E}a:hover{color:#1E2A23}
+button{font-family:inherit}
+a:focus-visible,button:focus-visible{outline:3px solid #B08D57;outline-offset:2px}
+@media (max-width:640px){
+  #inicio h1{font-size:40px !important}
+  section h2{font-size:34px !important}
+  #ms-screen h2{font-size:25px !important}
+  #contacto h2{font-size:36px !important}
+}
+</style>
+</head>
+<body>
+<div style="width: 100%; background: #F4F1EA; font-family: Inter, system-ui, sans-serif; color: #1E2A23">
+
+<header style="position: sticky; top: 0; z-index: 10; background: rgba(244,241,234,0.94); border-bottom: 1px solid #E6E0D4">
+<nav aria-label="Principal" data-i18n-aria="nav" style="max-width: 1200px; margin: 0 auto; padding: 16px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
+<a href="#inicio" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #1E2A23">
+<span style="width: 34px; height: 34px; border-radius: 10px; background: var(--accent); display: flex; align-items: center; justify-content: center">
+<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect><path d="M14 14h3v3h-3zM20 14v.01M14 20h.01M17 20h4v-3"></path></svg>
+</span>
+<span style="font-family: 'DM Serif Display', Georgia, serif; font-size: 24px; letter-spacing: -0.01em">My Stay</span>
+</a>
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 24px; font-size: 15px; font-weight: 500">
+<a href="#como" style="color: #3E4741; text-decoration: none" data-i18n="how">Cómo funciona</a>
+<a href="#demo" style="color: #3E4741; text-decoration: none" data-i18n="demo">Demo</a>
+<a href="#recepcion" style="color: #3E4741; text-decoration: none" data-i18n="nav_rec">Recepción</a>
+<div role="group" aria-label="Idioma · Language" style="display: inline-flex; padding: 3px; border: 1px solid #D9D3C6; border-radius: 999px; background: #FBFAF7">
+<button type="button" data-page-lang="ca" style="min-width: 44px; height: 38px; border: 0; border-radius: 999px; font: 600 13px/1 Inter, system-ui, sans-serif; cursor: pointer">CA</button>
+<button type="button" data-page-lang="es" style="min-width: 44px; height: 38px; border: 0; border-radius: 999px; font: 600 13px/1 Inter, system-ui, sans-serif; cursor: pointer">ES</button>
+<button type="button" data-page-lang="en" style="min-width: 44px; height: 38px; border: 0; border-radius: 999px; font: 600 13px/1 Inter, system-ui, sans-serif; cursor: pointer">EN</button>
+</div>
+<a href="#contacto" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 999px; background: var(--accent); color: #FFFFFF; text-decoration: none; font-weight: 600" data-i18n="cta_nav">Pide una demo</a>
+</div>
+</nav>
+</header>
+
+<section id="inicio" style="border-bottom: 1px solid #E6E0D4">
+<div style="max-width: 1200px; margin: 0 auto; padding: 64px 24px 80px; display: flex; flex-wrap: wrap; align-items: center; gap: 56px">
+<div style="flex: 1 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 24px">
+<p style="margin: 0; font-size: 14px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent)" data-i18n="eyebrow">Conserjería digital para hoteles</p>
+<h1 style="margin: 0; font-family: 'DM Serif Display', Georgia, serif; font-weight: 400; font-size: 60px; line-height: 1.04; letter-spacing: -0.01em; color: #1E2A23" data-i18n="h1">Tus huéspedes piden. Recepción lo recibe por WhatsApp.</h1>
+<p style="margin: 0; font-size: 19px; line-height: 1.55; color: #3E4741; max-width: 560px" data-i18n="lead">Un QR en cada habitación abre la conserjería de tu hotel en el móvil del huésped. Elige lo que necesita y en menos de 15 segundos llega a recepción un único mensaje, con el número de habitación incluido. Sin app, sin descargas, sin teclear.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 12px">
+<a href="#contacto" style="display: inline-flex; align-items: center; min-height: 52px; padding: 0 26px; border-radius: 999px; background: var(--accent); color: #FFFFFF; text-decoration: none; font-weight: 600; font-size: 16px" data-i18n="cta_hero">Pide una demo para tu hotel</a>
+<a href="#como" style="display: inline-flex; align-items: center; min-height: 52px; padding: 0 26px; border-radius: 999px; background: #FBFAF7; color: #1E2A23; text-decoration: none; font-weight: 600; font-size: 16px; border: 1.5px solid #D9D3C6" data-i18n="see_how">Ver cómo funciona</a>
+</div>
+<div style="display: flex; align-items: center; gap: 16px; padding: 18px 20px; background: #FBFAF7; border-radius: 18px; border: 1px solid #E6E0D4; max-width: 560px">
+<span style="flex: 0 0 auto; font-family: 'DM Serif Display', Georgia, serif; font-size: 40px; line-height: 1; color: var(--accent)">7/10</span>
+<p style="margin: 0; font-size: 15px; line-height: 1.5; color: #3E4741" data-i18n="proof">Ya funciona en un hotel de Barcelona: <strong style="color: #1E2A23">7 de cada 10 huéspedes</strong> lo usan al menos una vez durante su estancia.</p>
+</div>
+</div>
+
+<div id="demo" style="flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 16px">
+<div style="width: 360px; max-width: 100%; height: 760px; box-sizing: border-box; padding: 10px; border-radius: 50px; background: #1E2A23; box-shadow: 0 30px 60px rgba(30,42,35,0.25)">
+<div style="width: 100%; height: 100%; border-radius: 40px; overflow: hidden; background: #F4F1EA; display: flex; flex-direction: column">
+<div id="ms-screen" style="height: 100%; display: flex; flex-direction: column"></div>
+</div>
+</div>
+<p style="margin: 0; text-align: center; font-size: 14px; line-height: 1.5; color: #3E4741; max-width: 360px" data-i18n="demo_note">Demo interactiva en 7 idiomas: toca, elige y envía. Hotel Ventall es un hotel ficticio.</p>
+</div>
+</div>
+</section>
+
+<section id="como">
+<div style="max-width: 1200px; margin: 0 auto; padding: 96px 24px; display: flex; flex-direction: column; gap: 48px">
+<div style="display: flex; flex-direction: column; gap: 14px; max-width: 720px">
+<h2 style="margin: 0; font-family: 'DM Serif Display', Georgia, serif; font-weight: 400; font-size: 46px; line-height: 1.08" data-i18n="how">Cómo funciona</h2>
+<p style="margin: 0; font-size: 18px; line-height: 1.55; color: #3E4741" data-i18n="how_lead">Del escaneo al mensaje en recepción en menos de 15 segundos. Medido con cronómetro en el piloto.</p>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px">
+<div style="display: flex; flex-direction: column; gap: 10px; padding: 24px; border-radius: 20px; background: #FBFAF7; border: 1px solid #E6E0D4">
+<span style="font-family: 'DM Serif Display', Georgia, serif; font-size: 28px; line-height: 1; color: #B08D57">01</span>
+<h3 style="margin: 0; font-size: 18px; font-weight: 700" data-i18n="s1_t">Escanea el QR</h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.5; color: #3E4741" data-i18n="s1_d">Cada habitación tiene su propio código, con una dirección única y segura.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px; padding: 24px; border-radius: 20px; background: #FBFAF7; border: 1px solid #E6E0D4">
+<span style="font-family: 'DM Serif Display', Georgia, serif; font-size: 28px; line-height: 1; color: #B08D57">02</span>
+<h3 style="margin: 0; font-size: 18px; font-weight: 700" data-i18n="s2_t">Se abre en su idioma</h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.5; color: #3E4741" data-i18n="s2_d">La web ya sabe el número de habitación y detecta el idioma del móvil.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px; padding: 24px; border-radius: 20px; background: #FBFAF7; border: 1px solid #E6E0D4">
+<span style="font-family: 'DM Serif Display', Georgia, serif; font-size: 28px; line-height: 1; color: #B08D57">03</span>
+<h3 style="margin: 0; font-size: 18px; font-weight: 700" data-i18n="s3_t">Elige lo que necesita</h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.5; color: #3E4741" data-i18n="s3_d">Uno o varios servicios, con cantidades, de cualquier categoría y en una sola pantalla.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px; padding: 24px; border-radius: 20px; background: #FBFAF7; border: 1px solid #E6E0D4">
+<span style="font-family: 'DM Serif Display', Georgia, serif; font-size: 28px; line-height: 1; color: #B08D57">04</span>
+<h3 style="margin: 0; font-size: 18px; font-weight: 700" data-i18n="s4_t">Un solo WhatsApp</h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.5; color: #3E4741" data-i18n="s4_d">Se abre WhatsApp con el mensaje ya escrito. El huésped solo pulsa Enviar.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px; padding: 24px; border-radius: 20px; background: #FBFAF7; border: 1px solid #E6E0D4">
+<span style="font-family: 'DM Serif Display', Georgia, serif; font-size: 28px; line-height: 1; color: #B08D57">05</span>
+<h3 style="margin: 0; font-size: 18px; font-weight: 700" data-i18n="s5_t">Recepción lo gestiona</h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.5; color: #3E4741" data-i18n="s5_d">Llega al WhatsApp Business de recepción, con etiquetas y respuestas rápidas.</p>
+</div>
+</div>
+</div>
+</section>
+
+<section id="recepcion" style="background: #22372E; color: #FFFFFF">
+<div style="max-width: 1200px; margin: 0 auto; padding: 96px 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 56px">
+<div style="flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
+<h2 style="margin: 0; font-family: 'DM Serif Display', Georgia, serif; font-weight: 400; font-size: 46px; line-height: 1.08" data-i18n="rec_h">Recepción trabaja desde el WhatsApp que ya usa</h2>
+<p style="margin: 0; font-size: 18px; line-height: 1.55; color: #C8D3CC" data-i18n="rec_lead">Cada petición llega por escrito, con la habitación y todo lo que pide el huésped. Sin llamadas, sin papeles, sin malentendidos.</p>
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 12px; font-size: 16px; line-height: 1.5; color: #E7EDE9">
+<li style="display: flex; gap: 12px; align-items: flex-start"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D4B98A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex: 0 0 auto; margin-top: 2px"><path d="M5 12l5 5L19 7"></path></svg><span data-i18n="rec_1">Etiquetas para organizar: pendiente, en curso, resuelto.</span></li>
+<li style="display: flex; gap: 12px; align-items: flex-start"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D4B98A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex: 0 0 auto; margin-top: 2px"><path d="M5 12l5 5L19 7"></path></svg><span data-i18n="rec_2">Respuestas rápidas para lo que se pide cada día.</span></li>
+<li style="display: flex; gap: 12px; align-items: flex-start"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D4B98A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex: 0 0 auto; margin-top: 2px"><path d="M5 12l5 5L19 7"></path></svg><span data-i18n="rec_3">El número del huésped queda como canal directo durante toda la estancia.</span></li>
+<li style="display: flex; gap: 12px; align-items: flex-start"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D4B98A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex: 0 0 auto; margin-top: 2px"><path d="M5 12l5 5L19 7"></path></svg><span data-i18n="rec_4">Sin formación compleja: el equipo ya sabe usar WhatsApp.</span></li>
+</ul>
+</div>
+<div style="flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
+<div style="background: #FBFAF7; color: #1E2A23; border-radius: 22px; overflow: hidden; box-shadow: 0 24px 50px rgba(0,0,0,0.3)">
+<div style="padding: 16px 20px; border-bottom: 1px solid #E6E0D4; display: flex; align-items: center; justify-content: space-between; gap: 12px">
+<span style="font-weight: 700; font-size: 16px" data-i18n="inbox_t">Recepción · Hotel Ventall</span>
+<span style="font-size: 13px; color: #5E655F">WhatsApp Business</span>
+</div>
+<div style="display: flex; align-items: center; gap: 14px; padding: 16px 20px; border-bottom: 1px solid #EEEAE1">
+<span style="width: 44px; height: 44px; flex: 0 0 auto; border-radius: 999px; background: #E5EBE6; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px">214</span>
+<div style="flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+<span style="font-weight: 600; font-size: 15px" data-i18n="r214">Habitación 214</span>
+<span style="font-size: 14px; color: #3E4741; white-space: nowrap; overflow: hidden; text-overflow: ellipsis" data-i18n="r214_d">Zapatillas ×2 · Bolsa de lavandería ×1</span>
+</div>
+<span style="flex: 0 0 auto; padding: 5px 10px; border-radius: 999px; background: #F3E6CC; color: #6B4A00; font-size: 12px; font-weight: 700" data-i18n="lbl_pend">Pendiente</span>
+</div>
+<div style="display: flex; align-items: center; gap: 14px; padding: 16px 20px; border-bottom: 1px solid #EEEAE1">
+<span style="width: 44px; height: 44px; flex: 0 0 auto; border-radius: 999px; background: #E5EBE6; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px">108</span>
+<div style="flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+<span style="font-weight: 600; font-size: 15px" data-i18n="r108">Habitación 108</span>
+<span style="font-size: 14px; color: #3E4741; white-space: nowrap; overflow: hidden; text-overflow: ellipsis" data-i18n="r108_d">Taxi al aeropuerto</span>
+</div>
+<span style="flex: 0 0 auto; padding: 5px 10px; border-radius: 999px; background: #DCE6F2; color: #1D4A7A; font-size: 12px; font-weight: 700" data-i18n="lbl_curso">En curso</span>
+</div>
+<div style="display: flex; align-items: center; gap: 14px; padding: 16px 20px">
+<span style="width: 44px; height: 44px; flex: 0 0 auto; border-radius: 999px; background: #E5EBE6; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px">305</span>
+<div style="flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+<span style="font-weight: 600; font-size: 15px" data-i18n="r305">Habitación 305</span>
+<span style="font-size: 14px; color: #3E4741; white-space: nowrap; overflow: hidden; text-overflow: ellipsis" data-i18n="r305_d">Secador de pelo · Toallas extra</span>
+</div>
+<span style="flex: 0 0 auto; padding: 5px 10px; border-radius: 999px; background: #E5EBE6; color: #2D4A3E; font-size: 12px; font-weight: 700" data-i18n="lbl_res">Resuelto</span>
+</div>
+</div>
+<p style="margin: 0; font-size: 13px; color: #A9B9AF" data-i18n="inbox_note">Ejemplo ilustrativo con un hotel ficticio.</p>
+</div>
+</div>
+</section>
+
+<section>
+<div style="max-width: 1200px; margin: 0 auto; padding: 96px 24px; display: flex; flex-direction: column; gap: 40px">
+<div style="display: flex; flex-direction: column; gap: 14px; max-width: 720px">
+<h2 style="margin: 0; font-family: 'DM Serif Display', Georgia, serif; font-weight: 400; font-size: 46px; line-height: 1.08" data-i18n="cat_h">Todo lo que el huésped puede pedir</h2>
+<p style="margin: 0; font-size: 18px; line-height: 1.55; color: #3E4741" data-i18n="cat_lead">El catálogo, los horarios y los textos se adaptan a cada hotel. Estas son las categorías de la demo.</p>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px">
+<div style="padding: 24px; border-radius: 20px; background: #FBFAF7; border: 1px solid #E6E0D4; display: flex; flex-direction: column; gap: 10px">
+<h3 style="margin: 0; font-size: 18px; font-weight: 700" data-i18n="c1_t">Artículos para la habitación</h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.5; color: #3E4741" data-i18n="c1_d">Kit dental, zapatillas, secador, plancha, toallas extra… con la cantidad que haga falta.</p>
+</div>
+<div style="padding: 24px; border-radius: 20px; background: #FBFAF7; border: 1px solid #E6E0D4; display: flex; flex-direction: column; gap: 10px">
+<h3 style="margin: 0; font-size: 18px; font-weight: 700" data-i18n="c2_t">Comida y bebidas</h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.5; color: #3E4741" data-i18n="c2_d">La carta del bar para pedir y recoger. Fuera del horario de cocina, la categoría se bloquea sola.</p>
+</div>
+<div style="padding: 24px; border-radius: 20px; background: #FBFAF7; border: 1px solid #E6E0D4; display: flex; flex-direction: column; gap: 10px">
+<h3 style="margin: 0; font-size: 18px; font-weight: 700">Taxi</h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.5; color: #3E4741" data-i18n="c3_d">Al aeropuerto, a la estación o a la terminal de cruceros, sin llamar a recepción.</p>
+</div>
+<div style="padding: 24px; border-radius: 20px; background: #FBFAF7; border: 1px solid #E6E0D4; display: flex; flex-direction: column; gap: 10px">
+<h3 style="margin: 0; font-size: 18px; font-weight: 700" data-i18n="c4_t">Servicios de pago</h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.5; color: #3E4741" data-i18n="c4_d">Como la lavandería: precio claro, instrucciones paso a paso y fecha de entrega calculada al momento.</p>
+</div>
+<div style="padding: 24px; border-radius: 20px; background: #FBFAF7; border: 1px solid #E6E0D4; display: flex; flex-direction: column; gap: 10px">
+<h3 style="margin: 0; font-size: 18px; font-weight: 700" data-i18n="c5_t">Comunicar una incidencia</h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.5; color: #3E4741" data-i18n="c5_d">El huésped la describe con sus palabras, directamente a recepción.</p>
+</div>
+<div style="padding: 24px; border-radius: 20px; background: #FBFAF7; border: 1px solid #E6E0D4; display: flex; flex-direction: column; gap: 10px">
+<h3 style="margin: 0; font-size: 18px; font-weight: 700" data-i18n="c6_t">Hablar con recepción</h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.5; color: #3E4741" data-i18n="c6_d">Conversación directa con el equipo, para todo lo demás.</p>
+</div>
+</div>
+</div>
+</section>
+
+<section style="background: #ECE8DF">
+<div style="max-width: 1200px; margin: 0 auto; padding: 96px 24px; display: flex; flex-direction: column; gap: 40px">
+<h2 style="margin: 0; font-family: 'DM Serif Display', Georgia, serif; font-weight: 400; font-size: 46px; line-height: 1.08; max-width: 720px" data-i18n="why_h">Por qué My Stay</h2>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px">
+<div style="padding: 28px; border-radius: 20px; background: #FBFAF7; display: flex; flex-direction: column; gap: 10px">
+<h3 style="margin: 0; font-size: 19px; font-weight: 700" data-i18n="w1_t">Cero fricción</h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.55; color: #3E4741" data-i18n="w1_d">Es una web, no una app. Funciona igual en iPhone y Android y carga en menos de un segundo.</p>
+</div>
+<div style="padding: 28px; border-radius: 20px; background: #FBFAF7; display: flex; flex-direction: column; gap: 10px">
+<h3 style="margin: 0; font-size: 19px; font-weight: 700" data-i18n="w2_t">Menos llamadas a recepción</h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.55; color: #3E4741" data-i18n="w2_d">Las peticiones llegan por escrito, con la habitación incluida y todo en un solo mensaje.</p>
+</div>
+<div style="padding: 28px; border-radius: 20px; background: #FBFAF7; display: flex; flex-direction: column; gap: 10px">
+<h3 style="margin: 0; font-size: 19px; font-weight: 700" data-i18n="w3_t">Más ventas</h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.55; color: #3E4741" data-i18n="w3_d">Servicios de pago como la lavandería o el bar, a dos toques desde la habitación.</p>
+</div>
+<div style="padding: 28px; border-radius: 20px; background: #FBFAF7; display: flex; flex-direction: column; gap: 10px">
+<h3 style="margin: 0; font-size: 19px; font-weight: 700" data-i18n="w4_t">7 idiomas</h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.55; color: #3E4741" data-i18n="w4_d">Catalán, castellano, inglés, francés, italiano, alemán y chino. Detecta el idioma del móvil, con selector manual.</p>
+</div>
+<div style="padding: 28px; border-radius: 20px; background: #FBFAF7; display: flex; flex-direction: column; gap: 10px">
+<h3 style="margin: 0; font-size: 19px; font-weight: 700" data-i18n="w5_t">Respeta tus horarios</h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.55; color: #3E4741" data-i18n="w5_d">Lo que no está disponible se bloquea solo: la cocina fuera de horario, la lavandería en domingo.</p>
+</div>
+<div style="padding: 28px; border-radius: 20px; background: #FBFAF7; display: flex; flex-direction: column; gap: 10px">
+<h3 style="margin: 0; font-size: 19px; font-weight: 700" data-i18n="w6_t">Con la imagen de tu hotel</h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.55; color: #3E4741" data-i18n="w6_d">Diseño con tu identidad y el producto es tuyo. Analítica anónima, sin datos personales ni cookies (RGPD).</p>
+</div>
+</div>
+</div>
+</section>
+
+
+
+<section id="contacto" style="background: var(--accent); color: #FFFFFF">
+<div style="max-width: 1200px; margin: 0 auto; padding: 88px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 32px">
+<div style="flex: 1 1 480px; min-width: 0; display: flex; flex-direction: column; gap: 14px">
+<h2 style="margin: 0; font-family: 'DM Serif Display', Georgia, serif; font-weight: 400; font-size: 50px; line-height: 1.05" data-i18n="cta_h">¿Lo probamos en tu hotel?</h2>
+<p style="margin: 0; font-size: 18px; line-height: 1.55; max-width: 560px" data-i18n="cta_lead">Te enseño cómo quedaría con la imagen y el catálogo de tu hotel, y lo pruebas desde tu propio móvil.</p>
+</div>
+<div style="flex: 0 1 380px; min-width: 0; padding: 28px; border-radius: 22px; background: #FBFAF7; color: #1E2A23; display: flex; flex-direction: column; gap: 10px; border: 1.5px solid #B08D57">
+<span style="font-family: 'DM Serif Display', Georgia, serif; font-size: 24px">Ramon Sanfeliu</span>
+<a href="mailto:ai.vyralagency@gmail.com" style="display: inline-flex; align-items: center; gap: 10px; min-height: 44px; font-size: 16px; color: #1E2A23; text-decoration: none"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2D4A3E" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3 7l9 6 9-6"></path></svg><span style="text-decoration: underline; text-underline-offset: 3px">ai.vyralagency@gmail.com</span></a>
+<a href="https://wa.me/34625835073" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 10px; min-height: 44px; font-size: 16px; color: #1E2A23; text-decoration: none"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2D4A3E" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 21l1.9-5.4A8 8 0 1 1 21 12z"></path></svg><span style="text-decoration: underline; text-underline-offset: 3px">+34 625 83 50 73</span></a>
+</div>
+</div>
+</section>
+
+<footer style="background: #1E2A23; color: #C8D3CC">
+<div style="max-width: 1200px; margin: 0 auto; padding: 28px 24px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 14px">
+<span data-i18n="footer">My Stay · Conserjería digital para hoteles</span>
+<span>© 2026 Ramon Sanfeliu</span>
+</div>
+</footer>
+
+</div>
+<script>
+var PAGE = {"es": {"how": "Cómo funciona", "demo": "Demo", "nav_rec": "Recepción", "cta_nav": "Pide una demo", "eyebrow": "Conserjería digital para hoteles", "h1": "Tus huéspedes piden. Recepción lo recibe por WhatsApp.", "lead": "Un QR en cada habitación abre la conserjería de tu hotel en el móvil del huésped. Elige lo que necesita y en menos de 15 segundos llega a recepción un único mensaje, con el número de habitación incluido. Sin app, sin descargas, sin teclear.", "cta_hero": "Pide una demo para tu hotel", "see_how": "Ver cómo funciona", "demo_note": "Demo interactiva en 7 idiomas: toca, elige y envía. Hotel Ventall es un hotel ficticio.", "how_lead": "Del escaneo al mensaje en recepción en menos de 15 segundos. Medido con cronómetro en el piloto.", "s1_t": "Escanea el QR", "s1_d": "Cada habitación tiene su propio código, con una dirección única y segura.", "s2_t": "Se abre en su idioma", "s2_d": "La web ya sabe el número de habitación y detecta el idioma del móvil.", "s3_t": "Elige lo que necesita", "s3_d": "Uno o varios servicios, con cantidades, de cualquier categoría y en una sola pantalla.", "s4_t": "Un solo WhatsApp", "s4_d": "Se abre WhatsApp con el mensaje ya escrito. El huésped solo pulsa Enviar.", "s5_t": "Recepción lo gestiona", "s5_d": "Llega al WhatsApp Business de recepción, con etiquetas y respuestas rápidas.", "rec_h": "Recepción trabaja desde el WhatsApp que ya usa", "rec_lead": "Cada petición llega por escrito, con la habitación y todo lo que pide el huésped. Sin llamadas, sin papeles, sin malentendidos.", "rec_1": "Etiquetas para organizar: pendiente, en curso, resuelto.", "rec_2": "Respuestas rápidas para lo que se pide cada día.", "rec_3": "El número del huésped queda como canal directo durante toda la estancia.", "rec_4": "Sin formación compleja: el equipo ya sabe usar WhatsApp.", "inbox_t": "Recepción · Hotel Ventall", "r214": "Habitación 214", "r214_d": "Zapatillas ×2 · Bolsa de lavandería ×1", "lbl_pend": "Pendiente", "r108": "Habitación 108", "r108_d": "Taxi al aeropuerto", "lbl_curso": "En curso", "r305": "Habitación 305", "r305_d": "Secador de pelo · Toallas extra", "lbl_res": "Resuelto", "inbox_note": "Ejemplo ilustrativo con un hotel ficticio.", "cat_h": "Todo lo que el huésped puede pedir", "cat_lead": "El catálogo, los horarios y los textos se adaptan a cada hotel. Estas son las categorías de la demo.", "c1_t": "Artículos para la habitación", "c1_d": "Kit dental, zapatillas, secador, plancha, toallas extra… con la cantidad que haga falta.", "c2_t": "Comida y bebidas", "c2_d": "La carta del bar para pedir y recoger. Fuera del horario de cocina, la categoría se bloquea sola.", "c3_d": "Al aeropuerto, a la estación o a la terminal de cruceros, sin llamar a recepción.", "c4_t": "Servicios de pago", "c4_d": "Como la lavandería: precio claro, instrucciones paso a paso y fecha de entrega calculada al momento.", "c5_t": "Comunicar una incidencia", "c5_d": "El huésped la describe con sus palabras, directamente a recepción.", "c6_t": "Hablar con recepción", "c6_d": "Conversación directa con el equipo, para todo lo demás.", "why_h": "Por qué My Stay", "w1_t": "Cero fricción", "w1_d": "Es una web, no una app. Funciona igual en iPhone y Android y carga en menos de un segundo.", "w2_t": "Menos llamadas a recepción", "w2_d": "Las peticiones llegan por escrito, con la habitación incluida y todo en un solo mensaje.", "w3_t": "Más ventas", "w3_d": "Servicios de pago como la lavandería o el bar, a dos toques desde la habitación.", "w4_t": "7 idiomas", "w4_d": "Catalán, castellano, inglés, francés, italiano, alemán y chino. Detecta el idioma del móvil, con selector manual.", "w5_t": "Respeta tus horarios", "w5_d": "Lo que no está disponible se bloquea solo: la cocina fuera de horario, la lavandería en domingo.", "w6_t": "Con la imagen de tu hotel", "w6_d": "Diseño con tu identidad y el producto es tuyo. Analítica anónima, sin datos personales ni cookies (RGPD).", "cta_h": "¿Lo probamos en tu hotel?", "cta_lead": "Te enseño cómo quedaría con la imagen y el catálogo de tu hotel, y lo pruebas desde tu propio móvil.", "footer": "My Stay · Conserjería digital para hoteles", "proof": "Ya funciona en un hotel de Barcelona: <strong style=\"color: #1E2A23\">7 de cada 10 huéspedes</strong> lo usan al menos una vez durante su estancia."}, "ca": {"how": "Com funciona", "demo": "Demo", "nav_rec": "Recepció", "cta_nav": "Demana una demo", "eyebrow": "Consergeria digital per a hotels", "h1": "Els teus hostes demanen. Recepció ho rep per WhatsApp.", "lead": "Un QR a cada habitació obre la consergeria del teu hotel al mòbil de l’hoste. Tria el que necessita i en menys de 15 segons arriba a recepció un únic missatge, amb el número d’habitació inclòs. Sense app, sense descàrregues, sense teclejar.", "cta_hero": "Demana una demo per al teu hotel", "see_how": "Mira com funciona", "demo_note": "Demo interactiva en 7 idiomes: toca, tria i envia. L’Hotel Ventall és un hotel fictici.", "how_lead": "De l’escaneig al missatge a recepció en menys de 15 segons. Mesurat amb cronòmetre al pilot.", "s1_t": "Escaneja el QR", "s1_d": "Cada habitació té el seu propi codi, amb una adreça única i segura.", "s2_t": "S’obre en el seu idioma", "s2_d": "La web ja sap el número d’habitació i detecta l’idioma del mòbil.", "s3_t": "Tria el que necessita", "s3_d": "Un o diversos serveis, amb quantitats, de qualsevol categoria i en una sola pantalla.", "s4_t": "Un sol WhatsApp", "s4_d": "S’obre WhatsApp amb el missatge ja escrit. L’hoste només prem Enviar.", "s5_t": "Recepció ho gestiona", "s5_d": "Arriba al WhatsApp Business de recepció, amb etiquetes i respostes ràpides.", "rec_h": "Recepció treballa des del WhatsApp que ja fa servir", "rec_lead": "Cada petició arriba per escrit, amb l’habitació i tot el que demana l’hoste. Sense trucades, sense papers, sense malentesos.", "rec_1": "Etiquetes per organitzar: pendent, en curs, resolt.", "rec_2": "Respostes ràpides per al que es demana cada dia.", "rec_3": "El número de l’hoste queda com a canal directe durant tota l’estada.", "rec_4": "Sense formació complexa: l’equip ja sap fer servir WhatsApp.", "inbox_t": "Recepció · Hotel Ventall", "r214": "Habitació 214", "r214_d": "Sabatilles ×2 · Bossa de bugaderia ×1", "lbl_pend": "Pendent", "r108": "Habitació 108", "r108_d": "Taxi a l’aeroport", "lbl_curso": "En curs", "r305": "Habitació 305", "r305_d": "Assecador de cabells · Tovalloles extra", "lbl_res": "Resolt", "inbox_note": "Exemple il·lustratiu amb un hotel fictici.", "cat_h": "Tot el que l’hoste pot demanar", "cat_lead": "El catàleg, els horaris i els textos s’adapten a cada hotel. Aquestes són les categories de la demo.", "c1_t": "Articles per a l’habitació", "c1_d": "Kit dental, sabatilles, assecador, planxa, tovalloles extra… amb la quantitat que calgui.", "c2_t": "Menjar i begudes", "c2_d": "La carta del bar per demanar i recollir. Fora de l’horari de cuina, la categoria es bloqueja sola.", "c3_d": "A l’aeroport, a l’estació o a la terminal de creuers, sense trucar a recepció.", "c4_t": "Serveis de pagament", "c4_d": "Com la bugaderia: preu clar, instruccions pas a pas i data de lliurament calculada al moment.", "c5_t": "Comunicar una incidència", "c5_d": "L’hoste la descriu amb les seves paraules, directament a recepció.", "c6_t": "Parlar amb recepció", "c6_d": "Conversa directa amb l’equip, per a tota la resta.", "why_h": "Per què My Stay", "w1_t": "Zero fricció", "w1_d": "És una web, no una app. Funciona igual a iPhone i Android i carrega en menys d’un segon.", "w2_t": "Menys trucades a recepció", "w2_d": "Les peticions arriben per escrit, amb l’habitació inclosa i tot en un sol missatge.", "w3_t": "Més vendes", "w3_d": "Serveis de pagament com la bugaderia o el bar, a dos tocs des de l’habitació.", "w4_t": "7 idiomes", "w4_d": "Català, castellà, anglès, francès, italià, alemany i xinès. Detecta l’idioma del mòbil, amb selector manual.", "w5_t": "Respecta els teus horaris", "w5_d": "El que no està disponible es bloqueja sol: la cuina fora d’horari, la bugaderia en diumenge.", "w6_t": "Amb la imatge del teu hotel", "w6_d": "Disseny amb la teva identitat i el producte és teu. Analítica anònima, sense dades personals ni galetes (RGPD).", "cta_h": "Ho provem al teu hotel?", "cta_lead": "T’ensenyo com quedaria amb la imatge i el catàleg del teu hotel, i ho proves des del teu propi mòbil.", "footer": "My Stay · Consergeria digital per a hotels", "proof": "Ja funciona en un hotel de Barcelona: <strong style=\"color: #1E2A23\">7 de cada 10 hostes</strong> l’utilitzen almenys una vegada durant l’estada."}, "en": {"how": "How it works", "demo": "Demo", "nav_rec": "Reception", "cta_nav": "Book a demo", "eyebrow": "Digital concierge for hotels", "h1": "Your guests ask. Reception gets it on WhatsApp.", "lead": "A QR code in every room opens your hotel’s concierge on the guest’s phone. They pick what they need and, in under 15 seconds, reception receives a single message with the room number included. No app, no downloads, no typing.", "cta_hero": "Book a demo for your hotel", "see_how": "See how it works", "demo_note": "Interactive demo in 7 languages: tap, choose and send. Hotel Ventall is a fictional hotel.", "how_lead": "From scan to message at reception in under 15 seconds. Timed with a stopwatch during the pilot.", "s1_t": "Scan the QR code", "s1_d": "Every room has its own code, with a unique and secure address.", "s2_t": "Opens in their language", "s2_d": "The page already knows the room number and detects the phone’s language.", "s3_t": "Picks what they need", "s3_d": "One or more services, with quantities, from any category, on a single screen.", "s4_t": "One WhatsApp message", "s4_d": "WhatsApp opens with the message already written. The guest just taps Send.", "s5_t": "Reception handles it", "s5_d": "It lands in reception’s WhatsApp Business, with labels and quick replies.", "rec_h": "Reception works from the WhatsApp it already uses", "rec_lead": "Every request arrives in writing, with the room number and everything the guest asked for. No calls, no paper, no misunderstandings.", "rec_1": "Labels to stay organised: pending, in progress, resolved.", "rec_2": "Quick replies for everyday requests.", "rec_3": "The guest’s number becomes a direct channel for the whole stay.", "rec_4": "No complex training: the team already knows WhatsApp.", "inbox_t": "Reception · Hotel Ventall", "r214": "Room 214", "r214_d": "Slippers ×2 · Laundry bag ×1", "lbl_pend": "Pending", "r108": "Room 108", "r108_d": "Taxi to the airport", "lbl_curso": "In progress", "r305": "Room 305", "r305_d": "Hairdryer · Extra towels", "lbl_res": "Resolved", "inbox_note": "Illustrative example with a fictional hotel.", "cat_h": "Everything guests can ask for", "cat_lead": "The catalogue, opening hours and texts are tailored to each hotel. These are the demo’s categories.", "c1_t": "Room items", "c1_d": "Dental kit, slippers, hairdryer, iron, extra towels… in whatever quantity is needed.", "c2_t": "Food & drinks", "c2_d": "The bar menu, to order and pick up. Outside kitchen hours, the category locks itself.", "c3_d": "To the airport, the station or the cruise terminal, without calling reception.", "c4_t": "Paid services", "c4_d": "Like laundry: a clear price, step-by-step instructions and a delivery date worked out on the spot.", "c5_t": "Report an issue", "c5_d": "Guests describe it in their own words, straight to reception.", "c6_t": "Talk to reception", "c6_d": "A direct conversation with the team, for everything else.", "why_h": "Why My Stay", "w1_t": "Zero friction", "w1_d": "It’s a web page, not an app. It works the same on iPhone and Android and loads in under a second.", "w2_t": "Fewer calls to reception", "w2_d": "Requests arrive in writing, with the room number included and everything in one message.", "w3_t": "More sales", "w3_d": "Paid services like laundry or the bar, two taps away from the room.", "w4_t": "7 languages", "w4_d": "Catalan, Spanish, English, French, Italian, German and Chinese. It detects the phone’s language, with a manual selector.", "w5_t": "Respects your opening hours", "w5_d": "Whatever isn’t available locks itself: the kitchen out of hours, laundry on Sundays.", "w6_t": "With your hotel’s branding", "w6_d": "Designed with your identity, and the product is yours. Anonymous analytics, with no personal data or cookies (GDPR).", "cta_h": "Shall we try it in your hotel?", "cta_lead": "I’ll show you how it would look with your hotel’s branding and catalogue, and you can try it on your own phone.", "footer": "My Stay · Digital concierge for hotels", "proof": "Already live in a Barcelona hotel: <strong style=\"color: #1E2A23\">7 in 10 guests</strong> use it at least once during their stay."}};
+var PAGE_META = {"es": {"title": "My Stay · Conserjería digital para hoteles", "desc": "Un QR en cada habitación: el huésped pide lo que necesita y recepción lo recibe en un único WhatsApp, con el número de habitación incluido. Sin app, sin descargas.", "nav": "Principal"}, "ca": {"title": "My Stay · Consergeria digital per a hotels", "desc": "Un QR a cada habitació: l’hoste demana el que necessita i recepció ho rep en un únic WhatsApp, amb el número d’habitació inclòs. Sense app, sense descàrregues.", "nav": "Principal"}, "en": {"title": "My Stay · Digital concierge for hotels", "desc": "A QR code in every room: guests ask for what they need and reception gets it in a single WhatsApp message, room number included. No app, no downloads.", "nav": "Main"}};
+(function () {
+  var SUPPORTED = ['ca', 'es', 'en'];
+  function initialLang() {
+    try {
+      var p = new URLSearchParams(location.search).get('lang');
+      if (p && SUPPORTED.indexOf(p) >= 0) { return p; }
+    } catch (e) {}
+    try {
+      var saved = localStorage.getItem('mystay-lang');
+      if (saved && SUPPORTED.indexOf(saved) >= 0) { return saved; }
+    } catch (e) {}
+    var list = (navigator.languages && navigator.languages.length) ? navigator.languages : [navigator.language || 'es'];
+    for (var i = 0; i < list.length; i++) {
+      var l = String(list[i]).slice(0, 2).toLowerCase();
+      if (SUPPORTED.indexOf(l) >= 0) { return l; }
+    }
+    return 'es';
+  }
+  function applyLang(l, fromUser) {
+    var dict = PAGE[l] || PAGE.es;
+    document.documentElement.lang = l;
+    var nodes = document.querySelectorAll('[data-i18n]');
+    for (var i = 0; i < nodes.length; i++) {
+      var v = dict[nodes[i].getAttribute('data-i18n')];
+      if (v != null) { nodes[i].innerHTML = v; }
+    }
+    var meta = PAGE_META[l] || PAGE_META.es;
+    document.title = meta.title;
+    var d = document.querySelector('meta[name="description"]');
+    if (d) { d.setAttribute('content', meta.desc); }
+    var navs = document.querySelectorAll('[data-i18n-aria="nav"]');
+    for (var j = 0; j < navs.length; j++) { navs[j].setAttribute('aria-label', meta.nav); }
+    var btns = document.querySelectorAll('[data-page-lang]');
+    for (var k = 0; k < btns.length; k++) {
+      var on = btns[k].getAttribute('data-page-lang') === l;
+      btns[k].setAttribute('aria-pressed', on ? 'true' : 'false');
+      btns[k].style.background = on ? 'var(--accent)' : 'transparent';
+      btns[k].style.color = on ? '#FFFFFF' : '#3E4741';
+    }
+    if (fromUser) {
+      try { localStorage.setItem('mystay-lang', l); } catch (e) {}
+      if (window.msSetDemoLang) { window.msSetDemoLang(l); }
+    }
+    window.MS_LANG = l;
+  }
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-page-lang]');
+    if (b) { applyLang(b.getAttribute('data-page-lang'), true); }
+  });
+  applyLang(initialLang(), false);
+})();
+
+const S = {
+      es: {
+        q: '¿En qué podemos ayudarle?', room: 'Habitación',
+        need_t: '¿Necesita algo?', need_s: 'Kit dental, secador, plancha…',
+        food_t: 'Comida y bebidas', food_s: 'Pida ahora y recójalo en el bar', avail: 'Disponible de 7 h a 22 h',
+        taxi_t: 'Taxi', taxi_s: 'Al aeropuerto, estación o cruceros',
+        lau_t: 'Lavado y doblado', lau_s: 'Pídalo ahora y recibirá su ropa hoy después de las 21 h', lau_sun: 'No disponible los domingos',
+        issue_t: 'Comunicar una incidencia', issue_s: 'Descríbalo en WhatsApp y pulse Enviar',
+        desk_t: 'Hablar con recepción', desk_s: 'Escríbanos por WhatsApp',
+        need: ['Kit dental', 'Zapatillas', 'Kit de costura', 'Secador de pelo', 'Paraguas', 'Plancha y tabla', 'Toallas extra', 'Ventilador'],
+        food: ['Café con leche', 'Cortado', 'Agua mineral', 'Zumo de naranja', 'Bocadillo'],
+        taxi: ['Al aeropuerto', 'A la estación de Sants', 'A la terminal de cruceros'],
+        l_price: '59 € por bolsa de hasta 6 kg', l_1: 'Elija la cantidad', l_2: 'Envíe el pedido en la app', l_3: 'Deje la bolsa en recepción',
+        l_inc: 'Incluye lavado, secado, doblado y entrega en la habitación (sin planchado).',
+        l_del: 'Entrega: hoy ({d}), después de las 21 h', l_bag: 'Bolsa de lavandería (hasta 6 kg)',
+        sel: '{n} selecc.', cont: 'Continuar en WhatsApp', reception: 'Recepción', pickup: 'recoger en el bar',
+        issueMsg: 'Quiero comunicar una incidencia:', deskMsg: 'Hola, quería consultar…',
+        draft: 'El mensaje ya está escrito. Solo falta pulsar Enviar.',
+        issueNote: 'El huésped describe la incidencia con sus palabras y envía.',
+        deskNote: 'El huésped escribe lo que necesite y envía.',
+        send: 'Enviar', sent: 'Enviado', done: 'Solicitud completada en {s} s',
+        sentNote: 'Recepción la recibe al momento en su WhatsApp Business.', again: 'Nueva solicitud',
+        less: 'Quitar uno', more: 'Añadir uno', add: 'Añadir'
+      },
+      ca: {
+        q: 'En què el podem ajudar?', room: 'Habitació',
+        need_t: 'Necessita alguna cosa?', need_s: 'Kit dental, assecador, planxa…',
+        food_t: 'Menjar i begudes', food_s: 'Demani ara i reculli-ho al bar', avail: 'Disponible de 7 h a 22 h',
+        taxi_t: 'Taxi', taxi_s: 'A l’aeroport, l’estació o creuers',
+        lau_t: 'Rentat i plegat', lau_s: 'Demani-ho ara i rebrà la roba avui després de les 21 h', lau_sun: 'No disponible els diumenges',
+        issue_t: 'Comunicar una incidència', issue_s: 'Descrigui-ho a WhatsApp i premi Enviar',
+        desk_t: 'Parlar amb recepció', desk_s: 'Escrigui’ns per WhatsApp',
+        need: ['Kit dental', 'Sabatilles', 'Kit de cosir', 'Assecador de cabells', 'Paraigua', 'Planxa i taula', 'Tovalloles extra', 'Ventilador'],
+        food: ['Cafè amb llet', 'Tallat', 'Aigua mineral', 'Suc de taronja', 'Entrepà'],
+        taxi: ['A l’aeroport', 'A l’estació de Sants', 'A la terminal de creuers'],
+        l_price: '59 € per bossa de fins a 6 kg', l_1: 'Triï la quantitat', l_2: 'Enviï la comanda a l’app', l_3: 'Deixi la bossa a recepció',
+        l_inc: 'Inclou rentat, assecat, plegat i lliurament a l’habitació (sense planxat).',
+        l_del: 'Lliurament: avui ({d}), després de les 21 h', l_bag: 'Bossa de bugaderia (fins a 6 kg)',
+        sel: '{n} selecc.', cont: 'Continuar a WhatsApp', reception: 'Recepció', pickup: 'recollir al bar',
+        issueMsg: 'Vull comunicar una incidència:', deskMsg: 'Hola, volia consultar…',
+        draft: 'El missatge ja està escrit. Només cal prémer Enviar.',
+        issueNote: 'L’hoste descriu la incidència amb les seves paraules i envia.',
+        deskNote: 'L’hoste escriu el que necessiti i envia.',
+        send: 'Enviar', sent: 'Enviat', done: 'Sol·licitud completada en {s} s',
+        sentNote: 'Recepció la rep a l’instant al seu WhatsApp Business.', again: 'Nova sol·licitud',
+        less: 'Treure’n un', more: 'Afegir-ne un', add: 'Afegir'
+      },
+      en: {
+        q: 'How can we help you?', room: 'Room',
+        need_t: 'Need anything?', need_s: 'Dental kit, hairdryer, iron…',
+        food_t: 'Food & drinks', food_s: 'Order now and pick it up at the bar', avail: 'Available 7 am – 10 pm',
+        taxi_t: 'Taxi', taxi_s: 'To the airport, station or cruise terminal',
+        lau_t: 'Wash & fold', lau_s: 'Order now and get your clothes back today after 9 pm', lau_sun: 'Not available on Sundays',
+        issue_t: 'Report an issue', issue_s: 'Describe it on WhatsApp and tap Send',
+        desk_t: 'Talk to reception', desk_s: 'Message us on WhatsApp',
+        need: ['Dental kit', 'Slippers', 'Sewing kit', 'Hairdryer', 'Umbrella', 'Iron and board', 'Extra towels', 'Fan'],
+        food: ['White coffee', 'Cortado', 'Mineral water', 'Orange juice', 'Sandwich'],
+        taxi: ['To the airport', 'To Sants station', 'To the cruise terminal'],
+        l_price: '€59 per bag of up to 6 kg', l_1: 'Choose the quantity', l_2: 'Send the order in the app', l_3: 'Leave the bag at reception',
+        l_inc: 'Includes washing, drying, folding and delivery to your room (no ironing).',
+        l_del: 'Delivery: today ({d}), after 9 pm', l_bag: 'Laundry bag (up to 6 kg)',
+        sel: '{n} selected', cont: 'Continue on WhatsApp', reception: 'Reception', pickup: 'pick up at the bar',
+        issueMsg: 'I’d like to report an issue:', deskMsg: 'Hi, I wanted to ask…',
+        draft: 'The message is already written. Just tap Send.',
+        issueNote: 'The guest describes the issue in their own words and sends it.',
+        deskNote: 'The guest types whatever they need and sends it.',
+        send: 'Send', sent: 'Sent', done: 'Request completed in {s} s',
+        sentNote: 'Reception gets it instantly on their WhatsApp Business.', again: 'New request',
+        less: 'Remove one', more: 'Add one', add: 'Add'
+      },
+      fr: {
+        q: 'Comment pouvons-nous vous aider ?', room: 'Chambre',
+        need_t: 'Besoin de quelque chose ?', need_s: 'Kit dentaire, sèche-cheveux, fer…',
+        food_t: 'Repas et boissons', food_s: 'Commandez et récupérez au bar', avail: 'Disponible de 7 h à 22 h',
+        taxi_t: 'Taxi', taxi_s: 'Aéroport, gare ou terminal de croisière',
+        lau_t: 'Lavage et pliage', lau_s: 'Commandez maintenant, vêtements rendus aujourd’hui après 21 h', lau_sun: 'Indisponible le dimanche',
+        issue_t: 'Signaler un problème', issue_s: 'Décrivez-le sur WhatsApp et appuyez sur Envoyer',
+        desk_t: 'Parler à la réception', desk_s: 'Écrivez-nous sur WhatsApp',
+        need: ['Kit dentaire', 'Chaussons', 'Kit de couture', 'Sèche-cheveux', 'Parapluie', 'Fer et planche', 'Serviettes en plus', 'Ventilateur'],
+        food: ['Café au lait', 'Noisette', 'Eau minérale', 'Jus d’orange', 'Sandwich'],
+        taxi: ['À l’aéroport', 'À la gare de Sants', 'Au terminal de croisière'],
+        l_price: '59 € le sac jusqu’à 6 kg', l_1: 'Choisissez la quantité', l_2: 'Envoyez la commande dans l’app', l_3: 'Déposez le sac à la réception',
+        l_inc: 'Lavage, séchage, pliage et livraison en chambre inclus (sans repassage).',
+        l_del: 'Livraison : aujourd’hui ({d}), après 21 h', l_bag: 'Sac de linge (jusqu’à 6 kg)',
+        sel: '{n} sélect.', cont: 'Continuer sur WhatsApp', reception: 'Réception', pickup: 'à récupérer au bar',
+        issueMsg: 'Je souhaite signaler un problème :', deskMsg: 'Bonjour, je voulais demander…',
+        draft: 'Le message est déjà rédigé. Il suffit d’appuyer sur Envoyer.',
+        issueNote: 'Le client décrit le problème avec ses mots et envoie.',
+        deskNote: 'Le client écrit ce dont il a besoin et envoie.',
+        send: 'Envoyer', sent: 'Envoyé', done: 'Demande faite en {s} s',
+        sentNote: 'La réception la reçoit instantanément sur son WhatsApp Business.', again: 'Nouvelle demande',
+        less: 'Retirer un', more: 'Ajouter un', add: 'Ajouter'
+      },
+      it: {
+        q: 'Come possiamo aiutarla?', room: 'Camera',
+        need_t: 'Le serve qualcosa?', need_s: 'Kit dentale, asciugacapelli, ferro…',
+        food_t: 'Cibo e bevande', food_s: 'Ordini ora e ritiri al bar', avail: 'Disponibile dalle 7 alle 22',
+        taxi_t: 'Taxi', taxi_s: 'Aeroporto, stazione o terminal crociere',
+        lau_t: 'Lavaggio e piegatura', lau_s: 'Ordini ora e riceverà i suoi capi oggi dopo le 21', lau_sun: 'Non disponibile la domenica',
+        issue_t: 'Segnalare un problema', issue_s: 'Lo descriva su WhatsApp e prema Invia',
+        desk_t: 'Parlare con la reception', desk_s: 'Ci scriva su WhatsApp',
+        need: ['Kit dentale', 'Pantofole', 'Kit da cucito', 'Asciugacapelli', 'Ombrello', 'Ferro e asse', 'Asciugamani extra', 'Ventilatore'],
+        food: ['Caffellatte', 'Macchiato', 'Acqua minerale', 'Succo d’arancia', 'Panino'],
+        taxi: ['All’aeroporto', 'Alla stazione di Sants', 'Al terminal crociere'],
+        l_price: '59 € a sacco fino a 6 kg', l_1: 'Scelga la quantità', l_2: 'Invii l’ordine nell’app', l_3: 'Lasci il sacco alla reception',
+        l_inc: 'Include lavaggio, asciugatura, piegatura e consegna in camera (senza stiratura).',
+        l_del: 'Consegna: oggi ({d}), dopo le 21', l_bag: 'Sacco lavanderia (fino a 6 kg)',
+        sel: '{n} selez.', cont: 'Continua su WhatsApp', reception: 'Reception', pickup: 'da ritirare al bar',
+        issueMsg: 'Vorrei segnalare un problema:', deskMsg: 'Salve, volevo chiedere…',
+        draft: 'Il messaggio è già scritto. Basta premere Invia.',
+        issueNote: 'L’ospite descrive il problema con parole sue e invia.',
+        deskNote: 'L’ospite scrive ciò di cui ha bisogno e invia.',
+        send: 'Invia', sent: 'Inviato', done: 'Richiesta completata in {s} s',
+        sentNote: 'La reception la riceve subito sul suo WhatsApp Business.', again: 'Nuova richiesta',
+        less: 'Togli uno', more: 'Aggiungi uno', add: 'Aggiungi'
+      },
+      de: {
+        q: 'Wie können wir Ihnen helfen?', room: 'Zimmer',
+        need_t: 'Brauchen Sie etwas?', need_s: 'Zahnset, Föhn, Bügeleisen…',
+        food_t: 'Essen & Getränke', food_s: 'Jetzt bestellen und an der Bar abholen', avail: 'Verfügbar von 7 bis 22 Uhr',
+        taxi_t: 'Taxi', taxi_s: 'Zum Flughafen, Bahnhof oder Kreuzfahrtterminal',
+        lau_t: 'Waschen & Falten', lau_s: 'Jetzt bestellen, Wäsche heute nach 21 Uhr zurück', lau_sun: 'Sonntags nicht verfügbar',
+        issue_t: 'Problem melden', issue_s: 'Per WhatsApp beschreiben und auf Senden tippen',
+        desk_t: 'Mit der Rezeption sprechen', desk_s: 'Schreiben Sie uns per WhatsApp',
+        need: ['Zahnset', 'Hausschuhe', 'Nähset', 'Föhn', 'Regenschirm', 'Bügeleisen und Brett', 'Extra Handtücher', 'Ventilator'],
+        food: ['Milchkaffee', 'Cortado', 'Mineralwasser', 'Orangensaft', 'Sandwich'],
+        taxi: ['Zum Flughafen', 'Zum Bahnhof Sants', 'Zum Kreuzfahrtterminal'],
+        l_price: '59 € pro Beutel bis 6 kg', l_1: 'Menge wählen', l_2: 'Bestellung in der App senden', l_3: 'Beutel an der Rezeption abgeben',
+        l_inc: 'Inklusive Waschen, Trocknen, Falten und Zustellung aufs Zimmer (ohne Bügeln).',
+        l_del: 'Zustellung: heute ({d}), nach 21 Uhr', l_bag: 'Wäschebeutel (bis 6 kg)',
+        sel: '{n} ausgew.', cont: 'Weiter in WhatsApp', reception: 'Rezeption', pickup: 'an der Bar abholen',
+        issueMsg: 'Ich möchte ein Problem melden:', deskMsg: 'Hallo, ich wollte fragen…',
+        draft: 'Die Nachricht ist schon geschrieben. Einfach auf Senden tippen.',
+        issueNote: 'Der Gast beschreibt das Problem mit eigenen Worten und sendet.',
+        deskNote: 'Der Gast schreibt, was er braucht, und sendet.',
+        send: 'Senden', sent: 'Gesendet', done: 'Anfrage in {s} s erledigt',
+        sentNote: 'Die Rezeption erhält sie sofort in ihrem WhatsApp Business.', again: 'Neue Anfrage',
+        less: 'Eins weniger', more: 'Eins mehr', add: 'Hinzufügen'
+      },
+      zh: {
+        q: '我们能为您做些什么？', room: '房间',
+        need_t: '需要什么吗？', need_s: '牙具、吹风机、熨斗…',
+        food_t: '餐饮', food_s: '现在下单，到酒吧自取', avail: '供应时间 7:00–22:00',
+        taxi_t: '出租车', taxi_s: '前往机场、火车站或邮轮码头',
+        lau_t: '洗衣叠衣', lau_s: '现在下单，今天21点后送回衣物', lau_sun: '周日不提供',
+        issue_t: '报告问题', issue_s: '在 WhatsApp 中描述并点击发送',
+        desk_t: '联系前台', desk_s: '通过 WhatsApp 给我们留言',
+        need: ['牙具套装', '拖鞋', '针线包', '吹风机', '雨伞', '熨斗和熨衣板', '额外毛巾', '电风扇'],
+        food: ['拿铁咖啡', '可塔朵', '矿泉水', '橙汁', '三明治'],
+        taxi: ['去机场', '去桑茨火车站', '去邮轮码头'],
+        l_price: '每袋（最多6公斤）59欧元', l_1: '选择数量', l_2: '在应用中提交订单', l_3: '将洗衣袋交到前台',
+        l_inc: '包括洗涤、烘干、叠好并送至房间（不含熨烫）。',
+        l_del: '送达：今天（{d}）21点后', l_bag: '洗衣袋（最多6公斤）',
+        sel: '已选 {n} 项', cont: '在 WhatsApp 中继续', reception: '前台', pickup: '到酒吧自取',
+        issueMsg: '我想报告一个问题：', deskMsg: '您好，我想咨询…',
+        draft: '消息已写好，只需点击发送。',
+        issueNote: '客人用自己的话描述问题后发送。',
+        deskNote: '客人写下需要的内容后发送。',
+        send: '发送', sent: '已发送', done: '{s} 秒完成请求',
+        sentNote: '前台会立即在 WhatsApp Business 上收到。', again: '新的请求',
+        less: '减少一个', more: '增加一个', add: '添加'
+      }
+    };
+
+(function () {
+  var ACCENT = (getComputedStyle(document.documentElement).getPropertyValue('--accent') || '').trim() || '#2D4A3E';
+  var LANGS = [['ca', 'CA'], ['es', 'ES'], ['en', 'EN'], ['fr', 'FR'], ['it', 'IT'], ['de', 'DE'], ['zh', '中文']];
+  var LOCALES = { es: 'es-ES', ca: 'ca-ES', en: 'en-GB', fr: 'fr-FR', it: 'it-IT', de: 'de-DE', zh: 'zh-CN' };
+
+  function detectLang() {
+    var l = ((navigator.languages && navigator.languages[0]) || navigator.language || 'es').slice(0, 2).toLowerCase();
+    return S[l] ? l : 'es';
+  }
+
+
+  var MENU = [
+    { g: 'drinks', id: 'espresso', p: 1.8, n: { es: 'Café solo', ca: 'Cafè sol', en: 'Espresso', fr: 'Expresso', it: 'Caffè espresso', de: 'Espresso', zh: '意式浓缩咖啡' } },
+    { g: 'drinks', id: 'cortado', p: 1.9, n: { es: 'Cortado', ca: 'Tallat', en: 'Cortado', fr: 'Noisette', it: 'Macchiato', de: 'Cortado', zh: '可塔朵' } },
+    { g: 'drinks', id: 'latte', p: 2.2, n: { es: 'Café con leche', ca: 'Cafè amb llet', en: 'White coffee', fr: 'Café au lait', it: 'Caffellatte', de: 'Milchkaffee', zh: '拿铁咖啡' } },
+    { g: 'drinks', id: 'cappuccino', p: 2.8, n: { es: 'Capuchino', ca: 'Caputxino', en: 'Cappuccino', fr: 'Cappuccino', it: 'Cappuccino', de: 'Cappuccino', zh: '卡布奇诺' } },
+    { g: 'drinks', id: 'tea', p: 2.2, n: { es: 'Té o infusión', ca: 'Te o infusió', en: 'Tea or herbal tea', fr: 'Thé ou infusion', it: 'Tè o tisana', de: 'Tee oder Kräutertee', zh: '茶或花草茶' } },
+    { g: 'drinks', id: 'oj', p: 4.0, n: { es: 'Zumo de naranja natural', ca: 'Suc de taronja natural', en: 'Fresh orange juice', fr: 'Jus d’orange pressé', it: 'Spremuta d’arancia', de: 'Frisch gepresster Orangensaft', zh: '鲜榨橙汁' } },
+    { g: 'drinks', id: 'water', p: 2.0, n: { es: 'Agua mineral (50 cl)', ca: 'Aigua mineral (50 cl)', en: 'Mineral water (50 cl)', fr: 'Eau minérale (50 cl)', it: 'Acqua minerale (50 cl)', de: 'Mineralwasser (0,5 l)', zh: '矿泉水（500毫升）' } },
+    { g: 'drinks', id: 'soda', p: 2.8, n: { es: 'Refresco', ca: 'Refresc', en: 'Soft drink', fr: 'Soda', it: 'Bibita', de: 'Erfrischungsgetränk', zh: '软饮料' } },
+    { g: 'drinks', id: 'beer', p: 3.0, n: { es: 'Caña de cerveza', ca: 'Canya de cervesa', en: 'Draught beer', fr: 'Bière pression', it: 'Birra alla spina', de: 'Bier vom Fass', zh: '生啤' } },
+    { g: 'drinks', id: 'wine', p: 4.0, n: { es: 'Copa de vino', ca: 'Copa de vi', en: 'Glass of wine', fr: 'Verre de vin', it: 'Calice di vino', de: 'Glas Wein', zh: '一杯葡萄酒' } },
+    { g: 'drinks', id: 'cava', p: 5.0, n: { es: 'Copa de cava', ca: 'Copa de cava', en: 'Glass of cava', fr: 'Coupe de cava', it: 'Calice di cava', de: 'Glas Cava', zh: '一杯卡瓦起泡酒' } },
+    { g: 'food', id: 'croissant', p: 2.2, n: { es: 'Cruasán', ca: 'Croissant', en: 'Croissant', fr: 'Croissant', it: 'Cornetto', de: 'Croissant', zh: '牛角包' } },
+    { g: 'food', id: 'patomaquet', p: 6.5, n: { es: 'Pan con tomate y jamón', ca: 'Pa amb tomàquet i pernil', en: 'Tomato bread with ham', fr: 'Pain à la tomate et jambon', it: 'Pane al pomodoro con prosciutto', de: 'Tomatenbrot mit Schinken', zh: '番茄面包配火腿' } },
+    { g: 'food', id: 'iberico', p: 8.5, n: { es: 'Bocadillo de jamón ibérico', ca: 'Entrepà de pernil ibèric', en: 'Iberian ham sandwich', fr: 'Sandwich au jambon ibérique', it: 'Panino al prosciutto iberico', de: 'Sandwich mit Ibérico-Schinken', zh: '伊比利亚火腿三明治' } },
+    { g: 'food', id: 'tortilla', p: 5.0, n: { es: 'Tortilla de patatas', ca: 'Truita de patates', en: 'Spanish omelette', fr: 'Tortilla de pommes de terre', it: 'Tortilla di patate', de: 'Spanische Kartoffeltortilla', zh: '西班牙土豆蛋饼' } },
+    { g: 'food', id: 'bravas', p: 5.5, n: { es: 'Patatas bravas', ca: 'Patates braves', en: 'Patatas bravas', fr: 'Patatas bravas', it: 'Patatas bravas', de: 'Patatas bravas', zh: '辣酱土豆块' } },
+    { g: 'food', id: 'croquetas', p: 7.5, n: { es: 'Croquetas caseras (6 u.)', ca: 'Croquetes casolanes (6 u.)', en: 'Homemade croquettes (6)', fr: 'Croquettes maison (6)', it: 'Crocchette fatte in casa (6)', de: 'Hausgemachte Kroketten (6 Stk.)', zh: '自制可乐饼（6个）' } },
+    { g: 'food', id: 'salad', p: 9.0, n: { es: 'Ensalada mediterránea', ca: 'Amanida mediterrània', en: 'Mediterranean salad', fr: 'Salade méditerranéenne', it: 'Insalata mediterranea', de: 'Mediterraner Salat', zh: '地中海沙拉' } },
+    { g: 'food', id: 'board', p: 14.0, n: { es: 'Tabla de embutidos y quesos', ca: 'Taula d’embotits i formatges', en: 'Cured meats and cheese board', fr: 'Planche charcuterie et fromages', it: 'Tagliere di salumi e formaggi', de: 'Wurst- und Käseplatte', zh: '冷切肉和奶酪拼盘' } },
+    { g: 'food', id: 'crema', p: 4.5, n: { es: 'Crema catalana', ca: 'Crema catalana', en: 'Crema catalana', fr: 'Crème catalane', it: 'Crema catalana', de: 'Crema catalana', zh: '加泰罗尼亚焦糖奶油' } }
+  ];
+  var MENU_TXT = {
+    es: { drinks: 'Bebidas', food: 'Para comer', total: 'Total bar' },
+    ca: { drinks: 'Begudes', food: 'Per menjar', total: 'Total bar' },
+    en: { drinks: 'Drinks', food: 'To eat', total: 'Bar total' },
+    fr: { drinks: 'Boissons', food: 'À manger', total: 'Total bar' },
+    it: { drinks: 'Bevande', food: 'Da mangiare', total: 'Totale bar' },
+    de: { drinks: 'Getränke', food: 'Zum Essen', total: 'Summe Bar' },
+    zh: { drinks: '饮品', food: '餐点', total: '酒吧合计' }
+  };
+
+  var CART_TXT = {
+    es: { title: 'Su selección', total: 'Total', clear: 'Vaciar', close: 'Cerrar', open: 'Ver selección' },
+    ca: { title: 'La seva selecció', total: 'Total', clear: 'Buidar', close: 'Tancar', open: 'Veure la selecció' },
+    en: { title: 'Your selection', total: 'Total', clear: 'Clear', close: 'Close', open: 'View selection' },
+    fr: { title: 'Votre sélection', total: 'Total', clear: 'Vider', close: 'Fermer', open: 'Voir la sélection' },
+    it: { title: 'La sua selezione', total: 'Totale', clear: 'Svuota', close: 'Chiudi', open: 'Vedi selezione' },
+    de: { title: 'Ihre Auswahl', total: 'Summe', clear: 'Leeren', close: 'Schließen', open: 'Auswahl ansehen' },
+    zh: { title: '您的选择', total: '合计', clear: '清空', close: '关闭', open: '查看已选' }
+  };
+
+  var state = { lang: (window.MS_LANG && S[window.MS_LANG]) ? window.MS_LANG : detectLang(), open: 'need', qty: {}, screen: 'home', mode: 'list', sent: false, start: null, elapsed: 0, cart: false };
+
+  function esc(v) {
+    return String(v).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function touch() { if (!state.start) { state.start = Date.now(); } }
+
+  var ICONS = {
+    need: '<path d="M3 18h18M5 18a7 7 0 0 1 14 0M12 11V8M10 8h4"></path>',
+    food: '<path d="M4 9h12v5a5 5 0 0 1-10 0z"></path><path d="M16 11h2a2 2 0 0 1 0 4h-2M8 3v3M12 3v3"></path>',
+    taxi: '<path d="M5 17v-5l2-5h10l2 5v5z"></path><path d="M5 12h14M7 17v2M17 17v2M10 4h4v3h-4z"></path>',
+    laundry: '<rect x="4" y="3" width="16" height="18" rx="2"></rect><circle cx="12" cy="13" r="4"></circle><path d="M8 6h.01M11 6h.01"></path>',
+    issue: '<path d="M12 3l10 18H2z"></path><path d="M12 10v4M12 17h.01"></path>',
+    desk: '<path d="M21 12a8 8 0 0 1-11.6 7.1L4 21l1.9-5.4A8 8 0 1 1 21 12z"></path>'
+  };
+  var SVG_MINUS = '<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14"></path></svg>';
+  var SVG_PLUS = '<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>';
+  var SVG_STAR = '<svg aria-hidden="true" width="13" height="13" viewBox="0 0 24 24" fill="' + ACCENT + '"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7.1L12 17.3 5.8 21l1.6-7.1L2 9.2l7.1-.6z"></path></svg>';
+
+  function compute() {
+    var t = S[state.lang] || S.es;
+    var locale = LOCALES[state.lang] || 'es-ES';
+    var now = new Date();
+    var sunday = now.getDay() === 0;
+    var dateText;
+    try { dateText = now.toLocaleDateString(locale, { weekday: 'long', day: 'numeric', month: 'long' }); } catch (e) { dateText = now.toDateString(); }
+    function eur(n) { try { return n.toLocaleString(locale, { style: 'currency', currency: 'EUR' }); } catch (e) { return n + ' €'; } }
+
+    var defs = [
+      { id: 'need', kind: 'chips', title: t.need_t, sub: t.need_s },
+      { id: 'food', kind: 'menu', title: t.food_t, sub: t.food_s },
+      { id: 'taxi', kind: 'chips', title: t.taxi_t, sub: t.taxi_s },
+      { id: 'laundry', kind: 'laundry', title: t.lau_t, sub: t.lau_s, sub2: t.lau_sun, locked: sunday },
+      { id: 'issue', kind: 'direct', title: t.issue_t, sub: t.issue_s },
+      { id: 'desk', kind: 'direct', title: t.desk_t, sub: t.desk_s }
+    ];
+    var lines = [];
+    var foodTotal = 0;
+    var grand = 0;
+    var selected = [];
+    var distinct = 0;
+    var cats = defs.map(function (d) {
+      var items = [];
+      if (d.kind === 'chips') { items = t[d.id].map(function (label, i) { return { key: d.id + ':' + i, label: label }; }); }
+      if (d.kind === 'laundry') { items = [{ key: 'laundry:0', label: t.l_bag, unit: 59, price: eur(59) }]; }
+      if (d.kind === 'menu') { items = MENU.map(function (m) { return { key: 'food:' + m.id, label: m.n[state.lang] || m.n.es, unit: m.p, price: eur(m.p), g: m.g }; }); }
+      var count = 0;
+      items.forEach(function (it) {
+        it.qty = state.qty[it.key] || 0;
+        if (!it.qty) { return; }
+        count += 1;
+        selected.push({ key: it.key, label: it.label, qty: it.qty, line: it.unit ? eur(Math.round(it.unit * it.qty * 100) / 100) : '' });
+        if (it.unit) { grand += it.unit * it.qty; }
+        if (d.id === 'food') { foodTotal += it.unit * it.qty; lines.push('• ' + it.label + ' ×' + it.qty + ' · ' + eur(it.unit * it.qty)); }
+        else if (d.id === 'laundry') { lines.push('• ' + it.label + ' ×' + it.qty + ' · ' + eur(59 * it.qty)); }
+        else { lines.push('• ' + it.label + ' ×' + it.qty); }
+      });
+      if (d.id === 'food' && foodTotal > 0) { lines.push('   (' + t.pickup + ')'); }
+      distinct += count;
+      var locked = !!d.locked;
+      var expandable = d.kind !== 'direct' && !locked;
+      return {
+        d: d, items: items, count: count, locked: locked, expandable: expandable,
+        open: expandable && state.open === d.id
+      };
+    });
+    var head = t.room + ' 214';
+    var CT = CART_TXT[state.lang] || CART_TXT.es;
+    var grandText = eur(Math.round(grand * 100) / 100);
+    var messageText = head + '\n' + lines.join('\n') + (grand > 0 ? '\n\n' + CT.total + ': ' + grandText : '');
+    var chatNote = t.draft;
+    if (state.mode === 'issue') { messageText = head + '\n' + t.issueMsg + '\n…'; chatNote = t.issueNote; }
+    if (state.mode === 'desk') { messageText = head + '\n' + t.deskMsg; chatNote = t.deskNote; }
+    return { t: t, cats: cats, distinct: distinct, dateText: dateText, messageText: messageText, chatNote: chatNote, selected: selected, grand: grand, grandText: grandText, CT: CT };
+  }
+
+  function chip(it, t) {
+    if (!it.qty) {
+      return '<button type="button" data-act="add" data-key="' + it.key + '" style="min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1.5px solid #D9D3C6; background: #FFFFFF; color: #1E2A23; font: 500 14px/1.2 Inter, system-ui, sans-serif; cursor: pointer">' + esc(it.label) + '</button>';
+    }
+    return '<span style="display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 4px 0 16px; border-radius: 999px; background: var(--accent); color: #FFFFFF; font: 600 14px/1.2 Inter, system-ui, sans-serif">' +
+      '<span>' + esc(it.label) + '</span>' +
+      '<span style="display: inline-flex; align-items: center; gap: 4px; padding: 2px; border-radius: 999px; background: rgba(255,255,255,0.16)">' +
+      '<button type="button" data-act="dec" data-key="' + it.key + '" aria-label="' + esc(t.less) + '" style="width: 36px; height: 36px; border: 0; border-radius: 999px; background: transparent; color: #FFFFFF; cursor: pointer; display: flex; align-items: center; justify-content: center">' + SVG_MINUS + '</button>' +
+      '<span style="min-width: 14px; text-align: center">' + it.qty + '</span>' +
+      '<button type="button" data-act="inc" data-key="' + it.key + '" aria-label="' + esc(t.more) + '" style="width: 36px; height: 36px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1E2A23; cursor: pointer; display: flex; align-items: center; justify-content: center">' + SVG_PLUS + '</button>' +
+      '</span></span>';
+  }
+
+  function laundryRow(it, t) {
+    var right;
+    if (!it.qty) {
+      right = '<button type="button" data-act="add" data-key="' + it.key + '" aria-label="' + esc(t.add) + '" style="width: 44px; height: 44px; flex: 0 0 auto; border-radius: 999px; border: 2px solid var(--accent); background: #FFFFFF; color: #1E2A23; cursor: pointer; display: flex; align-items: center; justify-content: center">' + SVG_PLUS + '</button>';
+    } else {
+      right = '<span style="display: inline-flex; align-items: center; gap: 4px; padding: 2px; border-radius: 999px; background: var(--accent); color: #FFFFFF; font-weight: 600">' +
+        '<button type="button" data-act="dec" data-key="' + it.key + '" aria-label="' + esc(t.less) + '" style="width: 40px; height: 40px; border: 0; border-radius: 999px; background: transparent; color: #FFFFFF; cursor: pointer; display: flex; align-items: center; justify-content: center">' + SVG_MINUS + '</button>' +
+        '<span style="min-width: 16px; text-align: center">' + it.qty + '</span>' +
+        '<button type="button" data-act="inc" data-key="' + it.key + '" aria-label="' + esc(t.more) + '" style="width: 40px; height: 40px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1E2A23; cursor: pointer; display: flex; align-items: center; justify-content: center">' + SVG_PLUS + '</button>' +
+        '</span>';
+    }
+    return '<div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">' +
+      '<div style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 500">' + esc(it.label) + '</span><span style="font-size: 14px; color: #5E655F">' + esc(it.price) + '</span></div>' +
+      right + '</div>';
+  }
+
+  function step(n, text) {
+    return '<div style="display: flex; align-items: center; gap: 10px; font-size: 14px"><span style="width: 24px; height: 24px; flex: 0 0 auto; border-radius: 999px; background: var(--accent); color: #FFFFFF; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center">' + n + '</span><span>' + esc(text) + '</span></div>';
+  }
+
+  function card(c, v) {
+    var t = v.t;
+    var d = c.d;
+    var isDirect = d.kind === 'direct';
+    var right = '';
+    if (c.count) { right += '<span style="min-width: 24px; height: 24px; border-radius: 999px; background: var(--accent); color: #FFFFFF; font-size: 12px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center">' + c.count + '</span>'; }
+    if (c.locked) { right += '<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5E655F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg>'; }
+    if (c.expandable) { right += '<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3E4741" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transition: transform 0.2s' + (c.open ? '; transform: rotate(180deg)' : '') + '"><path d="M6 9l6 6 6-6"></path></svg>'; }
+    if (isDirect) { right += '<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3E4741" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>'; }
+
+    var act = isDirect ? 'data-act="direct" data-id="' + d.id + '"' : (c.expandable ? 'data-act="toggle" data-id="' + d.id + '"' : '');
+    var html = '<div style="background: #FBFAF7; border: 1px solid #E6E0D4; border-radius: 20px; box-shadow: 0 1px 2px rgba(30,42,35,0.05)' + (c.locked ? '; opacity: 0.55' : '') + '">' +
+      '<button type="button" ' + act + (c.locked ? ' disabled' : '') + (c.expandable ? ' aria-expanded="' + (c.open ? 'true' : 'false') + '"' : '') +
+      ' style="width: 100%; display: flex; align-items: center; gap: 12px; padding: 14px; background: transparent; border: 0; text-align: left; color: #1E2A23; font: inherit; cursor: ' + (c.locked ? 'default' : 'pointer') + '">' +
+      '<span style="flex: 0 0 auto; width: 44px; height: 44px; border-radius: 12px; background: #E5EBE6; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2D4A3E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' + ICONS[d.id] + '</svg></span>' +
+      '<span style="flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 3px">' +
+      '<span style="font-size: 16px; font-weight: 600; line-height: 1.25">' + esc(d.title) + '</span>' +
+      '<span style="font-size: 13px; line-height: 1.4; color: #5E655F">' + esc(d.sub) + '</span>' +
+      (d.sub2 ? '<span style="font-size: 13px; line-height: 1.4; color: #5E655F">' + esc(d.sub2) + '</span>' : '') +
+      (d.avail ? '<span style="align-self: flex-start; margin-top: 4px; padding: 4px 10px; border-radius: 999px; background: #ECE8DF; font-size: 12px; font-weight: 600; color: #3E4741">' + esc(t.avail) + '</span>' : '') +
+      '</span>' +
+      '<span style="flex: 0 0 auto; display: flex; align-items: center; gap: 8px">' + right + '</span>' +
+      '</button>';
+
+    if (c.open && d.kind === 'chips') {
+      html += '<div style="padding: 0 14px 16px; display: flex; flex-wrap: wrap; gap: 8px">' + c.items.map(function (it) { return chip(it, t); }).join('') + '</div>';
+    }
+    if (c.open && d.kind === 'menu') {
+      var mt = MENU_TXT[state.lang] || MENU_TXT.es;
+      var group = function (g) {
+        return '<div style="display: flex; flex-direction: column; gap: 10px">' +
+          '<span style="font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #8A6A3B">' + esc(mt[g]) + '</span>' +
+          c.items.filter(function (it) { return it.g === g; }).map(function (it) { return laundryRow(it, t); }).join('') + '</div>';
+      };
+      html += '<div style="padding: 0 14px 16px; display: flex; flex-direction: column; gap: 18px">' + group('drinks') + group('food') + '</div>';
+    }
+    if (c.open && d.kind === 'laundry') {
+      html += '<div style="padding: 0 14px 16px; display: flex; flex-direction: column; gap: 14px">' +
+        '<div style="padding: 16px; border-radius: 16px; background: #E5EBE6; display: flex; flex-direction: column; gap: 10px">' +
+        '<span style="font-size: 16px; font-weight: 700">' + esc(t.l_price) + '</span>' +
+        step(1, t.l_1) + step(2, t.l_2) + step(3, t.l_3) +
+        '<span style="padding-top: 10px; border-top: 1px solid #CCD6CF; font-size: 13px; line-height: 1.45; color: #3E4741">' + esc(t.l_inc) + '</span>' +
+        '<span style="padding-top: 10px; border-top: 1px solid #CCD6CF; font-size: 13px; line-height: 1.45; font-weight: 700; color: #1E2A23">' + esc(t.l_del.replace('{d}', v.dateText)) + '</span>' +
+        '</div>' + c.items.map(function (it) { return laundryRow(it, t); }).join('') + '</div>';
+    }
+    return html + '</div>';
+  }
+
+  function home(v) {
+    var t = v.t;
+    var langs = LANGS.map(function (l) {
+      var on = state.lang === l[0];
+      return '<button type="button" data-act="lang" data-id="' + l[0] + '" aria-pressed="' + (on ? 'true' : 'false') + '" style="min-width: 36px; height: 36px; padding: 0 6px; border: 0; border-radius: 999px; font: 600 12px/1 Inter, system-ui, sans-serif; cursor: pointer; ' + (on ? 'background: var(--accent); color: #FFFFFF' : 'background: transparent; color: #3E4741') + '">' + l[1] + '</button>';
+    }).join('');
+    var none = v.distinct === 0;
+    return '<div style="position: relative; display: flex; flex-direction: column; height: 100%">' +
+      '<div data-scroll style="flex: 1 1 auto; overflow-y: auto; padding: 22px 14px 18px; display: flex; flex-direction: column; gap: 12px">' +
+      '<div role="group" aria-label="Idioma" style="align-self: center; display: flex; padding: 4px; background: #FBFAF7; border: 1px solid #E6E0D4; border-radius: 999px">' + langs + '</div>' +
+      '<div style="display: flex; flex-direction: column; align-items: center; gap: 4px; margin-top: 4px">' +
+      '<span style="font-size: 17px; font-weight: 500; letter-spacing: 0.14em; color: var(--accent)">HOTEL VENTALL</span>' +
+      '<span role="img" aria-label="4 estrellas" style="display: flex; gap: 4px">' + SVG_STAR + SVG_STAR + SVG_STAR + SVG_STAR + '</span></div>' +
+      '<h2 style="margin: 2px 0 0; text-align: center; font-family: \'DM Serif Display\', Georgia, serif; font-weight: 400; font-size: 27px; line-height: 1.15; color: #1E2A23">' + esc(t.q) + '</h2>' +
+      '<div style="align-self: center; display: flex; align-items: center; gap: 10px; padding: 8px 20px; border: 1.5px solid #B08D57; border-radius: 999px; background: #FBFAF7">' +
+      '<span aria-hidden="true" style="width: 5px; height: 5px; border-radius: 999px; background: #B08D57"></span>' +
+      '<span style="font-size: 12px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: #3E4741">' + esc(t.room) + '</span>' +
+      '<span style="font-family: \'DM Serif Display\', Georgia, serif; font-size: 22px; line-height: 1; color: #1E2A23">214</span>' +
+      '<span aria-hidden="true" style="width: 5px; height: 5px; border-radius: 999px; background: #B08D57"></span></div>' +
+      v.cats.map(function (c) { return card(c, v); }).join('') +
+      '</div>' +
+      '<div style="padding: 10px 12px 18px; background: #F4F1EA">' +
+      '<div style="display: flex; gap: 8px; padding: 6px; border-radius: 999px; background: #FBFAF7; border: 1px solid #E6E0D4; box-shadow: 0 -6px 18px rgba(30,42,35,0.06)">' +
+      '<button type="button" data-act="cart"' + (none ? ' disabled' : '') + ' aria-haspopup="dialog" style="flex: 0 0 auto; display: inline-flex; align-items: center; gap: 6px; min-height: 48px; padding: 0 14px; border-radius: 999px; border: 1.5px solid #1E2A23; background: #FFFFFF; color: #1E2A23; font: 600 14px/1 Inter, system-ui, sans-serif; white-space: nowrap; cursor: ' + (none ? 'default' : 'pointer') + '">' +
+      '<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l-1 13H7z"></path><path d="M9 7a3 3 0 0 1 6 0"></path></svg>' +
+      '<span>' + esc(t.sel.replace('{n}', String(v.distinct))) + '</span></button>' +
+      '<button type="button" data-act="go"' + (none ? ' disabled' : '') + ' style="flex: 1 1 auto; min-height: 48px; padding: 0 16px; border: 0; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; font: 700 15px/1.1 Inter, system-ui, sans-serif; ' + (none ? 'background: #DDD8CC; color: #3E4741; cursor: default' : 'background: var(--accent); color: #FFFFFF; cursor: pointer') + '">' +
+      '<span>' + esc(t.cont) + '</span>' + '<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">' + ICONS.desk + '</svg></button>' +
+      '</div></div>' + (state.cart ? cartSheet(v) : '') + '</div>';
+  }
+
+  function cartSheet(v) {
+    var t = v.t;
+    var CT = v.CT;
+    var rows = v.selected.map(function (s) {
+      return '<div style="display: flex; align-items: center; gap: 10px; padding: 12px 0; border-bottom: 1px solid #EEEAE1">' +
+        '<span style="flex: 1 1 auto; min-width: 0; font-size: 15px; font-weight: 500; line-height: 1.3">' + esc(s.label) + '</span>' +
+        (s.line ? '<span style="flex: 0 0 auto; font-size: 14px; font-weight: 600; color: #1E2A23">' + esc(s.line) + '</span>' : '') +
+        '<span style="flex: 0 0 auto; display: inline-flex; align-items: center; gap: 2px; padding: 2px; border-radius: 999px; background: var(--accent); color: #FFFFFF; font-weight: 600">' +
+        '<button type="button" data-act="dec" data-key="' + s.key + '" aria-label="' + esc(t.less) + '" style="width: 36px; height: 36px; border: 0; border-radius: 999px; background: transparent; color: #FFFFFF; cursor: pointer; display: flex; align-items: center; justify-content: center">' + SVG_MINUS + '</button>' +
+        '<span style="min-width: 16px; text-align: center; font-size: 14px">' + s.qty + '</span>' +
+        '<button type="button" data-act="inc" data-key="' + s.key + '" aria-label="' + esc(t.more) + '" style="width: 36px; height: 36px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1E2A23; cursor: pointer; display: flex; align-items: center; justify-content: center">' + SVG_PLUS + '</button>' +
+        '</span></div>';
+    }).join('');
+    return '<div data-act="closecart" style="position: absolute; inset: 0; z-index: 5; background: rgba(30,42,35,0.45); display: flex; flex-direction: column; justify-content: flex-end">' +
+      '<div data-act="noop" role="dialog" aria-modal="true" aria-label="' + esc(CT.title) + '" style="max-height: 82%; display: flex; flex-direction: column; background: #FBFAF7; border-radius: 28px 28px 0 0; box-shadow: 0 -12px 30px rgba(30,42,35,0.2); cursor: default">' +
+      '<div style="display: flex; justify-content: center; padding-top: 8px"><span aria-hidden="true" style="width: 40px; height: 4px; border-radius: 999px; background: #D9D3C6"></span></div>' +
+      '<div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 10px 18px 6px">' +
+      '<h3 style="margin: 0; font-family: \'DM Serif Display\', Georgia, serif; font-weight: 400; font-size: 24px; color: #1E2A23">' + esc(CT.title) + '</h3>' +
+      '<button type="button" data-act="closecart" aria-label="' + esc(CT.close) + '" style="width: 44px; height: 44px; border: 0; border-radius: 999px; background: #ECE8DF; color: #1E2A23; cursor: pointer; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>' +
+      '</div>' +
+      '<div data-scroll-cart style="flex: 1 1 auto; overflow-y: auto; padding: 0 18px">' + rows + '</div>' +
+      '<div style="padding: 14px 18px 18px; display: flex; flex-direction: column; gap: 12px; border-top: 1px solid #E6E0D4">' +
+      (v.grand > 0 ? '<div style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px"><span style="font-size: 15px; font-weight: 600; color: #3E4741">' + esc(CT.total) + '</span><span style="font-family: \'DM Serif Display\', Georgia, serif; font-size: 28px; line-height: 1; color: #1E2A23">' + esc(v.grandText) + '</span></div>' : '') +
+      '<div style="display: flex; gap: 8px">' +
+      '<button type="button" data-act="clear" style="flex: 0 0 auto; min-height: 48px; padding: 0 18px; border-radius: 999px; border: 1.5px solid #D9D3C6; background: #FFFFFF; color: #1E2A23; font: 600 14px/1 Inter, system-ui, sans-serif; cursor: pointer">' + esc(CT.clear) + '</button>' +
+      '<button type="button" data-act="go" style="flex: 1 1 auto; min-height: 48px; padding: 0 16px; border: 0; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: var(--accent); color: #FFFFFF; font: 700 15px/1.1 Inter, system-ui, sans-serif; cursor: pointer"><span>' + esc(t.cont) + '</span><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">' + ICONS.desk + '</svg></button>' +
+      '</div></div></div></div>';
+  }
+
+  function chat(v) {
+    var t = v.t;
+    var big = 'width: 100%; min-height: 52px; border-radius: 999px; font: 700 16px/1 Inter, system-ui, sans-serif; cursor: pointer; ';
+    var bottom = state.sent
+      ? '<button type="button" data-act="reset" style="' + big + 'border: 1.5px solid #1E2A23; background: #FFFFFF; color: #1E2A23">' + esc(t.again) + '</button>'
+      : '<button type="button" data-act="send" style="' + big + 'border: 0; background: var(--accent); color: #FFFFFF">' + esc(t.send) + '</button>';
+    var after = state.sent
+      ? '<div style="align-self: flex-end; display: flex; align-items: center; gap: 4px; font-size: 12px; color: #3E4741"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2D4A3E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 13l4 4L14 7M10 15l2 2 9-10"></path></svg><span>' + esc(t.sent) + '</span></div>' +
+        '<div style="margin-top: 8px; background: #FBFAF7; border-radius: 18px; padding: 16px; display: flex; flex-direction: column; gap: 6px; border: 1.5px solid #B08D57">' +
+        '<span style="font-family: \'DM Serif Display\', Georgia, serif; font-size: 22px; line-height: 1.15; color: #1E2A23">' + esc(t.done.replace('{s}', String(state.elapsed))) + '</span>' +
+        '<span style="font-size: 13px; line-height: 1.45; color: #3E4741">' + esc(t.sentNote) + '</span></div>'
+      : '<p style="margin: 0; align-self: center; text-align: center; max-width: 250px; font-size: 13px; line-height: 1.45; color: #3E4741">' + esc(v.chatNote) + '</p>';
+    return '<div style="display: flex; flex-direction: column; height: 100%; background: #ECE8DF">' +
+      '<div style="background: var(--accent); color: #FFFFFF; padding: 26px 12px 14px; display: flex; align-items: center; gap: 8px">' +
+      '<button type="button" data-act="back" aria-label="Volver" style="width: 44px; height: 44px; border: 0; background: transparent; color: #FFFFFF; cursor: pointer; display: flex; align-items: center; justify-content: center; border-radius: 999px"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"></path></svg></button>' +
+      '<span style="width: 38px; height: 38px; border-radius: 999px; background: #FBFAF7; color: #1E2A23; display: flex; align-items: center; justify-content: center; font-family: \'DM Serif Display\', Georgia, serif; font-size: 16px">HV</span>' +
+      '<div style="display: flex; flex-direction: column; gap: 1px"><span style="font-weight: 600; font-size: 15px">' + esc(t.reception + ' · Hotel Ventall') + '</span><span style="font-size: 12px; opacity: 0.85">WhatsApp</span></div></div>' +
+      '<div data-scroll style="flex: 1 1 auto; overflow-y: auto; padding: 20px 14px; display: flex; flex-direction: column; gap: 12px">' +
+      '<div style="align-self: flex-end; max-width: 88%; background: #FBFAF7; color: #1E2A23; border: 1px solid #E6E0D4; border-radius: 18px 18px 4px 18px; padding: 12px 14px; font-size: 14px; line-height: 1.5; white-space: pre-line">' + esc(v.messageText) + '</div>' +
+      after + '</div>' +
+      '<div style="padding: 12px 14px 20px; background: #FBFAF7; border-top: 1px solid #E6E0D4">' + bottom + '</div></div>';
+  }
+
+  var root = document.getElementById('ms-screen');
+
+  function render() {
+    var sc = root.querySelector('[data-scroll]');
+    var top = sc ? sc.scrollTop : 0;
+    var cs = root.querySelector('[data-scroll-cart]');
+    var ctop = cs ? cs.scrollTop : 0;
+    var sameScreen = root.getAttribute('data-screen') === state.screen;
+    var v = compute();
+    root.innerHTML = state.screen === 'home' ? home(v) : chat(v);
+    root.setAttribute('data-screen', state.screen);
+    var sc2 = root.querySelector('[data-scroll]');
+    if (sc2 && sameScreen) { sc2.scrollTop = top; }
+    var cs2 = root.querySelector('[data-scroll-cart]');
+    if (cs2) { cs2.scrollTop = ctop; }
+  }
+
+  root.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-act]');
+    if (!b || b.disabled || !root.contains(b)) { return; }
+    var act = b.getAttribute('data-act');
+    var id = b.getAttribute('data-id');
+    var key = b.getAttribute('data-key');
+    if (act !== 'send' && act !== 'back' && act !== 'reset') { touch(); }
+    if (act === 'lang') { state.lang = id; }
+    else if (act === 'toggle') { state.open = state.open === id ? null : id; }
+    else if (act === 'add') { state.qty[key] = 1; }
+    else if (act === 'inc') { state.qty[key] = (state.qty[key] || 0) + 1; }
+    else if (act === 'dec') { var n = (state.qty[key] || 0) - 1; if (n <= 0) { delete state.qty[key]; } else { state.qty[key] = n; } if (!Object.keys(state.qty).length) { state.cart = false; } }
+    else if (act === 'noop') { return; }
+    else if (act === 'cart') { state.cart = true; }
+    else if (act === 'closecart') { state.cart = false; }
+    else if (act === 'clear') { state.qty = {}; state.cart = false; }
+    else if (act === 'direct') { state.screen = 'chat'; state.mode = id; state.sent = false; state.cart = false; }
+    else if (act === 'go') { state.screen = 'chat'; state.mode = 'list'; state.sent = false; state.cart = false; }
+    else if (act === 'send') { state.elapsed = Math.max(1, Math.round((Date.now() - (state.start || Date.now())) / 1000)); state.sent = true; }
+    else if (act === 'back') { state.screen = 'home'; state.sent = false; }
+    else if (act === 'reset') { state = { lang: state.lang, open: 'need', qty: {}, screen: 'home', mode: 'list', sent: false, start: null, elapsed: 0, cart: false }; }
+    render();
+  });
+
+  window.msSetDemoLang = function (l) {
+    if (S[l]) { state.lang = l; render(); }
+  };
+
+  render();
+})();
+</script>
+</body>
+</html>
